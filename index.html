@@ -33,7 +33,7 @@
         <div class="container-fluid">
             <div class="row mt-2">
                 <!-- Left side -->
-                <div class="container-fluid col-12 col-sm-7 me-0">
+                <div class="container-fluid col-12 col-sm-7 me-0 mb-3">
                     <h1>Richiesta Preventivo</h1>
                     <p>Compila il form per richiedere un preventivo per i nostri servizi di sviluppo.</p>
                     <form id="preventive-form">
@@ -70,11 +70,13 @@
                             <input type="checkbox" id="input-check" class="form-check-input" value="" required><!-- todo quando in JS ascoltiamo l'evento "CLICK" required vengono SALTATI!  -->
                             <label class="form-check-label" for="input-check">Accetto la Privacy Policy</label>
                         </div>
-                        <div class="d-flex justify-content-around mb-3">
-                            <button type="submit" id="preventive-submit" class="btn btn-primary align-self-start">Calcola preventivo</button><!-- align-self-start allinea il pulsante all'inizio (in alto) dell'area del contenitore flex -->
-                            <div>
-                                <h5 class="fw-bold ">Prezzo finale</h5>
-                                <h3 id="preventive-result" class="fw-bold text-center"></h3>
+                        <div class="row">
+                            <div class="col-sm-6 text-center mb-3">
+                                <button type="submit" id="preventive-submit" class="btn btn-primary align-self-start">Calcola preventivo</button><!-- align-self-start allinea il pulsante all'inizio (in alto) dell'area del contenitore flex -->
+                            </div>
+                            <div class="col-sm-6 text-center mb-3">
+                                <h6 class="fw-bold">Prezzo finale</h6>
+                                <h4 id="preventive-result" class="fw-bold"></h4>
                             </div>
                         </div>
                     </form>
