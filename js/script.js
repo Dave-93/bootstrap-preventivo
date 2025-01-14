@@ -15,6 +15,14 @@ const couponList = ["YHDNU32", "JANJC63", "PWKCN25", "SJDPO96", "POCIE24"];
 
 submitPreventive.addEventListener("click", function(event){
     event.preventDefault();
+
+// VALIDAZIONI CAMPI
+    validInput(inputName);
+    validInput(inputSurname);
+    validInput(inputEmail);
+    validInputSelect(inputSelect);
+    //validInput(inputCheck); la check NON funziona
+//
     
 // CALCOLO DEGLI SCONTI 
     const couponBackEnd = ((10 * 20.5) * (25 / 100));
@@ -72,6 +80,32 @@ function checkCoupon(input){
         resultCoupon.classList.add("text-danger");
         couponActive = "No";//assegna il valore alla variabile
         return couponActive;//restituisce quel valore
+    }
+}
+//
+
+// VALIDAZIONE INPUT TEXT
+function validInput(input){
+    const valInput = input.value;
+    if(!valInput){
+        input.classList.remove("is-valid");
+        input.classList.add("is-invalid");
+    }else{
+        input.classList.remove("is-invalid");
+        input.classList.add("is-valid");
+    }
+}
+//
+
+// VALIDAZIONE SELECT
+function validInputSelect(select){
+    const valSelect = select.value;
+    if((valSelect === "1") || (valSelect === "2") || (valSelect === "3")){
+        select.classList.remove("is-invalid");
+        select.classList.add("is-valid");  
+    }else{
+        select.classList.remove("is-valid");
+        select.classList.add("is-invalid");
     }
 }
 //
