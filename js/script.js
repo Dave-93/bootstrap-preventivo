@@ -9,6 +9,7 @@ const inputCheck = document.querySelector("#input-check");
 const submitPreventive = document.querySelector("#submit-preventive");
 const resultPreventive = document.querySelector("#result-preventive");
 const resultCoupon = document.querySelector("#result-coupon");
+const resultError = document.querySelector("#result-error");
 
 const couponList = ["YHDNU32", "JANJC63", "PWKCN25", "SJDPO96", "POCIE24"];
 
@@ -29,8 +30,6 @@ submitPreventive.addEventListener("click", function(event){
     console.log(validInputCheck);
     let couponActive = checkCoupon(inputPromoCode);
     console.log(couponActive);
-
-    //todo VALID CHECKBOX
     //todo TOGLIERE TUTTI I CONSOLE
 //
     
@@ -41,10 +40,12 @@ submitPreventive.addEventListener("click", function(event){
 //
 
 //CONTROLLO DI BLOCCO SE I CAMPI SONO VUOTI
-    if((!validInputName) || (!validInputSurname) || (!validInputEmail) || (!validInputSelect)){//verifica se la variabile è "FALSY". Restituisce TRUE se il valore della var è "false"(input vuoto) che soddisfando la condizione blocca l'esecuzione, altrimenti se il valore della var è "true"(input pieno) restituisce FALSE e non soddisfando la condizione passa all'else che esegue il calcolo del prezzo
+    if((!validInputName) || (!validInputSurname) || (!validInputEmail) || (!validInputSelect) || (!validInputCheck)){//verifica se la variabile è "FALSY". Restituisce TRUE se il valore della var è "false"(input vuoto) che soddisfando la condizione blocca l'esecuzione, altrimenti se il valore della var è "true"(input pieno) restituisce FALSE e non soddisfando la condizione passa all'else che esegue il calcolo del prezzo
         console.log("blocca codice")
-        alert("Compila tutti i campi")
-        timerError();
+        resultError.innerHTML = "Per favore compila tutti i campi e riprova!";
+        setTimeout(function() {
+            resultError.innerHTML = ""; // Pulisce il messaggio dopo 3 secondi
+        }, 3000);
         return;
     }else{
         console.log("continua esecuzione")
@@ -75,6 +76,7 @@ submitPreventive.addEventListener("click", function(event){
     //
     }
 })
+//
 
 // CONTROLLO SUL COUPON
 function checkCoupon(input){
