@@ -13,72 +13,50 @@ const resultError = document.querySelector("#result-error");
 
 const couponList = ["YHDNU32", "JANJC63", "PWKCN25", "SJDPO96", "POCIE24"];
 
-
 submitPreventive.addEventListener("click", function(event){
     event.preventDefault();
 
 // VALIDAZIONI CAMPI
     let validInputName = validInput(inputName);
-    console.log(validInputName);
     let validInputSurname = validInput(inputSurname);
-    console.log(validInputSurname);
     let validInputEmail = validInput(inputEmail);
-    console.log(validInputEmail);
     let validInputSelect = validSelect(inputSelect);
-    console.log(validInputSelect);
     let validInputCheck = validCheckbox(inputCheck);
-    console.log(validInputCheck);
     let couponActive = checkCoupon(inputPromoCode);
-    console.log(couponActive);
-    //todo TOGLIERE TUTTI I CONSOLE
-//
-    
-// CALCOLO DEGLI SCONTI 
-    const couponBackEnd = ((10 * 20.5) * (25 / 100));
-    const couponFrontEnd = ((10 * 15.3) * (25 / 100));
-    const couponProject = ((10 * 33.6) * (25 / 100));
 //
 
 //CONTROLLO DI BLOCCO SE I CAMPI SONO VUOTI
     if((!validInputName) || (!validInputSurname) || (!validInputEmail) || (!validInputSelect) || (!validInputCheck)){//verifica se la variabile è "FALSY". Restituisce TRUE se il valore della var è "false"(input vuoto) che soddisfando la condizione blocca l'esecuzione, altrimenti se il valore della var è "true"(input pieno) restituisce FALSE e non soddisfando la condizione passa all'else che esegue il calcolo del prezzo
-        console.log("blocca codice")
         resultError.innerHTML = "Per favore compila tutti i campi e riprova!";
-        setTimeout(function() {
-            resultError.innerHTML = ""; // Pulisce il messaggio dopo 3 secondi
-        }, 3000);
+        timerOutput();
         return;
     }else{
-        console.log("continua esecuzione")
     // CALCOLO PREZZO e CONTROLLO PER APPLICARE LO SCONTO
-    if(!couponActive){
-        if(inputSelect.value === "1"){
-            let backEnd = (10 * 20.5);
-            resultPreventive.innerHTML = `€ ${backEnd.toFixed(2).replace(".",",")}`;
-        }else if(inputSelect.value === "2"){
-            let frontEnd = (10 * 15.3);
-            resultPreventive.innerHTML = `€ ${frontEnd.toFixed(2).replace(".",",")}`;
-        }else if(inputSelect.value === "3"){
-            let project = (10 * 33.6);
-            resultPreventive.innerHTML = `€ ${project.toFixed(2).replace(".",",")}`;
+        let price;
+        switch(inputSelect.value){ //assegno direttamente il prezzo alla variabile in base alla scelta fatta sul select
+            case "1":
+                price = 20.5 * 10;
+                break;
+            case "2":
+                price = 15.3 * 10;
+                break;
+            case "3":
+                price = 33.6 * 10;
+                break;
         }
-    }else{
-        if(inputSelect.value === "1"){
-            let backEnd = (10 * 20.5) - couponBackEnd;
-            resultPreventive.innerHTML = `€ ${backEnd.toFixed(2).replace(".",",")}`;
-        }else if(inputSelect.value === "2"){
-            let frontEnd = (10 * 15.3) - couponFrontEnd;
-            resultPreventive.innerHTML = `€ ${frontEnd.toFixed(2).replace(".",",")}`;
-        }else if(inputSelect.value === "3"){
-            let project = (10 * 33.6) - couponProject;
-            resultPreventive.innerHTML = `€ ${project.toFixed(2).replace(".",",")}`;
+        if(!couponActive){
+            resultPreventive.innerHTML = `€ ${price.toFixed(2).replace(".",",")}`;//stampo il prezzo pieno
+            timerOutput();
+        }else{
+            resultPreventive.innerHTML = `€ ${(price*75/100).toFixed(2).replace(".",",")}`;//stampo il prezzo applicando lo sconto inline
+            timerOutput();
         }
-    }
     //
     }
 })
 //
 
-// CONTROLLO SUL COUPON
+// VALIDAZIONE e CONTROLLO SUL COUPON
 function checkCoupon(input){
     let couponActive;
     if(!(input.value)){
@@ -100,7 +78,7 @@ function checkCoupon(input){
         resultCoupon.classList.add("text-danger");
         couponActive = false;//assegna il valore alla variabile
     }
-    return couponActive;//restituisce quel valore che è TRUE se nell'input è presente il coupon giusto, o FALSE se il coupon Non è stato inserito o non è corretto
+    return couponActive;//restituisce valore TRUE se nell'input è presente il coupon giusto, o FALSE se il coupon Non è stato inserito o non è corretto
 }
 //
 
@@ -117,7 +95,7 @@ function validInput(input){
         input.classList.add("is-valid");
         checkValidInput = true;
     }
-    return checkValidInput;//così restituisce direttamente TRUE se nell'input è presente del contienuto, o FALSE se Non ha contenuto
+    return checkValidInput;//così restituisce direttamente TRUE se nell'input è presente del contenuto, o FALSE se Non ha contenuto
 }
 //
 
@@ -134,7 +112,7 @@ function validSelect(select){
         select.classList.add("is-invalid");
         checkValidSelect = false;
     }
-    return checkValidSelect;//così restituisce direttamente TRUE se è stata selezionata una scelta, o FALSE se Non è stata fatta alcuna scelta
+    return checkValidSelect;//così restituisce direttamente TRUE se è stata effettuata una scelta, o FALSE se Non è stata fatta alcuna scelta
 }
 //
 
@@ -151,5 +129,15 @@ function validCheckbox(checkbox){
         checkValidCheckbox = false;
     }
     return checkValidCheckbox;
+}
+//
+
+//TIMER
+function timerOutput(){
+    setTimeout(function() {//Pulisce il messaggio dopo 5 secondi
+        resultError.innerHTML = ""; 
+        resultCoupon.innerHTML = "";
+        resultPreventive.innerHTML = "";
+    }, 5000);
 }
 //
