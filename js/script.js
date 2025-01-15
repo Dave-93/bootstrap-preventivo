@@ -17,18 +17,19 @@ submitPreventive.addEventListener("click", function(event){
     event.preventDefault();
 
 // VALIDAZIONI CAMPI
-    let validInputName = validInput(inputName).includes("Ok");//mi restituisce direttamente TRUE se contiene "Ok"(l'input contiene del testo) o FALSE se Non contiene "Ok"(l'input è vuoto)
+    let validInputName = validInput(inputName);
     console.log(validInputName);
-    let validInputSurname = validInput(inputSurname).includes("Ok");
+    let validInputSurname = validInput(inputSurname);
     console.log(validInputSurname);
-    let validInputEmail = validInput(inputEmail).includes("Ok");
+    let validInputEmail = validInput(inputEmail);
     console.log(validInputEmail);
-    let validInputSelect = validSelect(inputSelect).includes("Ok");
+    let validInputSelect = validSelect(inputSelect);
     console.log(validInputSelect);
-    let couponActive = checkCoupon(inputPromoCode).includes("Ok");
+    let couponActive = checkCoupon(inputPromoCode);
     console.log(couponActive);
 
     //todo VALID CHECKBOX
+    //todo TOGLIERE TUTTI I CONSOLE
 //
     
 // CALCOLO DEGLI SCONTI 
@@ -45,25 +46,29 @@ submitPreventive.addEventListener("click", function(event){
     }else{
         console.log("continua esecuzione")
     // CALCOLO PREZZO e CONTROLLO PER APPLICARE LO SCONTO
-        if((inputSelect.value === "1") && (couponActive === "Ok")){
-            let backEnd = (10 * 20.5) - couponBackEnd;
-            resultPreventive.innerHTML = `€ ${backEnd.toFixed(2).replace(".",",")}`; 
-        }else if(inputSelect.value === "1"){
+    if(!couponActive){
+        if(inputSelect.value === "1"){
             let backEnd = (10 * 20.5);
             resultPreventive.innerHTML = `€ ${backEnd.toFixed(2).replace(".",",")}`;
-        }else if((inputSelect.value === "2") && (couponActive === "Ok")){
-            let frontEnd = (10 * 15.3) - couponFrontEnd;
-            resultPreventive.innerHTML = `€ ${frontEnd.toFixed(2).replace(".",",")}`; 
         }else if(inputSelect.value === "2"){
             let frontEnd = (10 * 15.3);
-            resultPreventive.innerHTML = `€ ${frontEnd.toFixed(2).replace(".",",")}`; 
-        }else if((inputSelect.value === "3") && (couponActive === "Ok")){
-            let project = (10 * 33.6) - couponProject;
-            resultPreventive.innerHTML = `€ ${project.toFixed(2).replace(".",",")}`; 
+            resultPreventive.innerHTML = `€ ${frontEnd.toFixed(2).replace(".",",")}`;
         }else if(inputSelect.value === "3"){
             let project = (10 * 33.6);
             resultPreventive.innerHTML = `€ ${project.toFixed(2).replace(".",",")}`;
         }
+    }else{
+        if(inputSelect.value === "1"){
+            let backEnd = (10 * 20.5) - couponBackEnd;
+            resultPreventive.innerHTML = `€ ${backEnd.toFixed(2).replace(".",",")}`;
+        }else if(inputSelect.value === "2"){
+            let frontEnd = (10 * 15.3) - couponFrontEnd;
+            resultPreventive.innerHTML = `€ ${frontEnd.toFixed(2).replace(".",",")}`;
+        }else if(inputSelect.value === "3"){
+            let project = (10 * 33.6) - couponProject;
+            resultPreventive.innerHTML = `€ ${project.toFixed(2).replace(".",",")}`;
+        }
+    }
     //
     }
 })
@@ -76,23 +81,21 @@ function checkCoupon(input){
         resultCoupon.classList.remove("text-success");
         resultCoupon.classList.remove("text-danger");
         resultCoupon.classList.add("text-info");
-        couponActive = "No";//assegna il valore alla variabile
-        return couponActive;//restituisce quel valore
+        couponActive = false;//assegna il valore alla variabile
     }else if(couponList.includes(input.value)){
         resultCoupon.innerHTML = "Coupon valido!"
         resultCoupon.classList.remove("text-danger");
         resultCoupon.classList.remove("text-info");
         resultCoupon.classList.add("text-success");
-        couponActive = "Ok";//assegna il valore alla variabile
-        return couponActive;//restituisce quel valore
+        couponActive = true;//assegna il valore alla variabile
     }else{
         resultCoupon.innerHTML = "Coupon non valido!"
         resultCoupon.classList.remove("text-success");
         resultCoupon.classList.remove("text-info");
         resultCoupon.classList.add("text-danger");
-        couponActive = "No";//assegna il valore alla variabile
-        return couponActive;//restituisce quel valore
+        couponActive = false;//assegna il valore alla variabile
     }
+    return couponActive;//restituisce quel valore che è TRUE se nell'input è presente il coupon giusto, o FALSE se il coupon Non è stato inserito o non è corretto
 }
 //
 
@@ -103,14 +106,13 @@ function validInput(input){
     if(!valInput){
         input.classList.remove("is-valid");
         input.classList.add("is-invalid");
-        checkValidInput = "No";
-        return checkValidInput;
+        checkValidInput = false;
     }else{
         input.classList.remove("is-invalid");
         input.classList.add("is-valid");
-        checkValidInput = "Ok";
-        return checkValidInput;
+        checkValidInput = true;
     }
+    return checkValidInput;//così restituisce direttamente TRUE se nell'input è presente del contienuto, o FALSE se Non ha contenuto
 }
 //
 
@@ -121,13 +123,12 @@ function validSelect(select){
     if((valSelect === "1") || (valSelect === "2") || (valSelect === "3")){
         select.classList.remove("is-invalid");
         select.classList.add("is-valid");  
-        checkValidSelect = "Ok";
-        return checkValidSelect;
+        checkValidSelect = true;
     }else{
         select.classList.remove("is-valid");
         select.classList.add("is-invalid");
-        checkValidSelect = "No";
-        return checkValidSelect;
+        checkValidSelect = false;
     }
+    return checkValidSelect;//così restituisce direttamente TRUE se è stata selezionata una scelta, o FALSE se Non è stata fatta alcuna scelta
 }
 //
