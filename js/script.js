@@ -25,6 +25,8 @@ submitPreventive.addEventListener("click", function(event){
     console.log(validInputEmail);
     let validInputSelect = validSelect(inputSelect);
     console.log(validInputSelect);
+    let validInputCheck = validCheckbox(inputCheck);
+    console.log(validInputCheck);
     let couponActive = checkCoupon(inputPromoCode);
     console.log(couponActive);
 
@@ -42,6 +44,7 @@ submitPreventive.addEventListener("click", function(event){
     if((!validInputName) || (!validInputSurname) || (!validInputEmail) || (!validInputSelect)){//verifica se la variabile è "FALSY". Restituisce TRUE se il valore della var è "false"(input vuoto) che soddisfando la condizione blocca l'esecuzione, altrimenti se il valore della var è "true"(input pieno) restituisce FALSE e non soddisfando la condizione passa all'else che esegue il calcolo del prezzo
         console.log("blocca codice")
         alert("Compila tutti i campi")
+        timerError();
         return;
     }else{
         console.log("continua esecuzione")
@@ -130,5 +133,21 @@ function validSelect(select){
         checkValidSelect = false;
     }
     return checkValidSelect;//così restituisce direttamente TRUE se è stata selezionata una scelta, o FALSE se Non è stata fatta alcuna scelta
+}
+//
+
+//VALIDAZIONE CHECKBOX
+function validCheckbox(checkbox){
+    let checkValidCheckbox;
+    if(checkbox.checked){//.checked è una proprietà che mi permette di vedere lo stato di una checkbox, restituendo TRUE se la checkbox è selezionata, o FALSE se non lo è
+        checkbox.classList.remove("is-invalid");
+        checkbox.classList.add("is-valid");
+        checkValidCheckbox = true;
+    }else{
+        checkbox.classList.remove("is-valid");
+        checkbox.classList.add("is-invalid");
+        checkValidCheckbox = false;
+    }
+    return checkValidCheckbox;
 }
 //
