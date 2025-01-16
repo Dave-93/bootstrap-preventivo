@@ -25,34 +25,33 @@ submitPreventive.addEventListener("click", function(event){
     let couponActive = checkCoupon(inputPromoCode);
 //
 
-//CONTROLLO DI BLOCCO SE I CAMPI SONO VUOTI
+// CONTROLLO DI BLOCCO SE I CAMPI SONO VUOTI
     if((!validInputName) || (!validInputSurname) || (!validInputEmail) || (!validInputSelect) || (!validInputCheck)){//verifica se la variabile è "FALSY". Restituisce TRUE se il valore della var è "false"(input vuoto) che soddisfando la condizione blocca l'esecuzione, altrimenti se il valore della var è "true"(input pieno) restituisce FALSE e non soddisfando la condizione passa all'else che esegue il calcolo del prezzo
         resultError.innerHTML = "Per favore compila tutti i campi e riprova!";
         timerOutput();
         return;
-    }else{
-    // CALCOLO PREZZO e CONTROLLO PER APPLICARE LO SCONTO
-        let price;
-        switch(inputSelect.value){ //assegno direttamente il prezzo alla variabile in base alla scelta fatta sul select
-            case "1":
-                price = 20.5 * 10;
-                break;
-            case "2":
-                price = 15.3 * 10;
-                break;
-            case "3":
-                price = 33.6 * 10;
-                break;
-        }
-        if(!couponActive){
-            resultPreventive.innerHTML = formatPrice(price);//stampo il prezzo pieno
-            timerOutput();
-        }else{
-            resultPreventive.innerHTML = formatPrice(price * 75 / 100);//stampo il prezzo applicando lo sconto inline
-            timerOutput();
-        }
-    //
     }
+    // CALCOLO PREZZO e CONTROLLO PER APPLICARE LO SCONTO
+    let price;
+    switch(inputSelect.value){ //assegno direttamente il prezzo alla variabile in base alla scelta fatta sul select
+        case "1":
+            price = 20.5 * 10;
+            break;
+        case "2":
+            price = 15.3 * 10;
+            break;
+        case "3":
+            price = 33.6 * 10;
+            break;
+    }
+    if(!couponActive){
+        resultPreventive.innerHTML = formatPrice(price);//stampo il prezzo pieno
+        timerOutput();
+    }else{
+        resultPreventive.innerHTML = formatPrice(price * 75 / 100);//stampo il prezzo applicando lo sconto inline
+        timerOutput();
+    }
+    //
 })
 //
 
