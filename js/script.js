@@ -45,10 +45,10 @@ submitPreventive.addEventListener("click", function(event){
                 break;
         }
         if(!couponActive){
-            resultPreventive.innerHTML = `€ ${price.toFixed(2).replace(".",",")}`;//stampo il prezzo pieno
+            resultPreventive.innerHTML = formatPrice(price);//stampo il prezzo pieno
             timerOutput();
         }else{
-            resultPreventive.innerHTML = `€ ${(price*75/100).toFixed(2).replace(".",",")}`;//stampo il prezzo applicando lo sconto inline
+            resultPreventive.innerHTML = formatPrice(price * 75 / 100);//stampo il prezzo applicando lo sconto inline
             timerOutput();
         }
     //
@@ -116,7 +116,7 @@ function validSelect(select){
 }
 //
 
-//VALIDAZIONE CHECKBOX
+// VALIDAZIONE CHECKBOX
 function validCheckbox(checkbox){
     let checkValidCheckbox;
     if(checkbox.checked){//.checked è una proprietà che mi permette di vedere lo stato di una checkbox, restituendo TRUE se la checkbox è selezionata, o FALSE se non lo è
@@ -132,12 +132,21 @@ function validCheckbox(checkbox){
 }
 //
 
-//TIMER
+// TIMER
 function timerOutput(){
     setTimeout(function() {//Pulisce il messaggio dopo 5 secondi
         resultError.innerHTML = ""; 
         resultCoupon.innerHTML = "";
         resultPreventive.innerHTML = "";
     }, 5000);
+}
+//
+
+// FORMATTAZIONE PREZZO
+function formatPrice(resultPrice) {
+    resultPrice = resultPrice.toFixed(2).replace(".", ",").split(",");
+    let integerPart = resultPrice[0];
+    let decimalPart = resultPrice[1];
+    return `<strong>€ ${integerPart}</strong>,${decimalPart}`;
 }
 //
