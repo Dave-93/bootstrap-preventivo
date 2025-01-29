@@ -90,7 +90,7 @@
                             </div>
                             <div class="col-sm-6 text-center mb-3">
                                 <h6 class="fw-bold">Prezzo finale</h6>
-                                <p id="result-preventive" class="fs-4 "></p><!--todo trasformare in maiuscolo il num intero "fw-bold" -->
+                                <p id="result-preventive" class="fs-4"></p><!-- restituisce il risultato del preventivo -->
                                 <p id="result-coupon"></p><!-- utile per indicare all'utente se lo sconto è stato applicato o meno -->
                             </div>
                         </div>
@@ -99,11 +99,13 @@
 
                 <!-- Right side -->
                 <div class="container-fluid d-flex justify-content-center col-12 col-sm-3 ms-0">
-                    <div class="card align-self-start" style="width: 18rem;"><!-- align-self utilities on flexbox items to individually change their alignment on the cross axis -->
+                    <div class="card align-self-start"><!-- allinea la card all'inizio del cross-axis eliminando il comportamento stretch nella versione desktop-->
                         <img src="./img/service.jpg" class="card-img-top" alt="Supporto">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><h6>I nostri contatti</h6>
-                                <p class="card-text">Se hai bisogno di aiuto puoi contattarci:</p></li>
+                            <li class="list-group-item">
+                                <h6>I nostri contatti</h6>
+                                <p class="card-text">Se hai bisogno di aiuto puoi contattarci:</p>
+                            </li>
                             <li class="list-group-item">help@boolfactory.test</li>
                             <li class="list-group-item">+1122334455</li>
                             <li class="list-group-item"><a href="#" class="card-link">Help desk</a></li>
